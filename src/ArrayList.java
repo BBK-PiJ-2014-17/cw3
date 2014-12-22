@@ -9,7 +9,7 @@ public class ArrayList implements List {
     private int size;
 
     public ArrayList() {
-        data = new Object[20];
+        data = new Object[5];
         size = 0;
     }
 
@@ -138,11 +138,13 @@ public class ArrayList implements List {
 
                 index++;
 
+                if (index > data.length - 1) {
+                    adjustListSize();
+                }
+
             }
 
-            if (index > data.length) {
-                adjustListSize();
-            }
+
 
             data[index] = item;
 
@@ -156,6 +158,8 @@ public class ArrayList implements List {
     }
 
     private void adjustListSize() {
+
+        System.out.println("DOUBLING ARRAY");
 
         int oldLength = data.length;
         int newLength = oldLength * 2;
@@ -210,6 +214,11 @@ public class ArrayList implements List {
         for (int i = 0; i < size; i++) {
             sb.append(data[i].toString());
             sb.append(", ");
+        }
+
+        if (sb.length() > 2) {
+            sb.deleteCharAt(sb.length() - 1);
+            sb.deleteCharAt(sb.length() - 1);
         }
 
         sb.append("]");
