@@ -1,21 +1,39 @@
 
 /**
  * Created by Basil on 30/11/2014.
+ *
+ * Implements ReturnObject.
+ *
  */
 public class ReturnObjectImpl implements ReturnObject {
+
+    // class variables
 
     private ErrorMessage err;
     private Object data;
 
-    public ReturnObjectImpl(){
-        err = null;
-        data = null;
-    };
+    // constructors
 
-    public ReturnObjectImpl(Object data) {
-        this(data, null);
+    /**
+     * default constructor, empty structure
+     */
+    public ReturnObjectImpl() {
+        this(null, ErrorMessage.EMPTY_STRUCTURE);
     }
 
+    /**
+     * data only constructor, no error
+     * @param data contains data part of returnObject
+     */
+    public ReturnObjectImpl(Object data) {
+        this(data, ErrorMessage.NO_ERROR);
+    }
+
+    /**
+     * fully initialised constructor
+     * @param data contains data part of returnObject
+     * @param err contains error message for returnObject
+     */
     public ReturnObjectImpl(Object data, ErrorMessage err) {
         this.data = data;
         this.err = err;
@@ -59,7 +77,7 @@ public class ReturnObjectImpl implements ReturnObject {
      *         error
      */
     public Object getReturnValue() {
-        return data;
+        return (hasError()) ? null : data;
     }
 
 }
