@@ -3,73 +3,139 @@
  */
 public class StackImplTest {
 
+    private List aList;
+    private Stack aStack;
+
     public static void main(String[] args) {
 
         System.out.println("***\tStack Test Module\t***\n");
-        System.out.println("\n**LIST**\n");
 
-        List aList = new LinkedList();
+        StackImplTest sit = new StackImplTest();
+        sit.launch();
 
-        /* Setup List */
+    }
+
+    private void launch() {
+
+        System.out.println("**LIST SETUP**\n");
+
+        aList = new LinkedList();
+
+        /* FUNCTIONAL & ERROR TESTS */
 
         System.out.println("Initial EMPTY list: " + aList.toString());
         System.out.println("Is EMPTY? " + aList.isEmpty());
         System.out.println("Has size? " + aList.size());
 
-        System.out.println("\nAdding objects to the end of the list...\n");
+        System.out.println("\nAdding objects to the end of the list...");
 
-        System.out.println("\t" + aList.add(1).getError());
-        System.out.println("\t" + aList.add("item2").getError());
+        testAdd(1);
+        testAdd("item2");
+        testAdd("item3");
+        testAdd(4);
+        testAdd(null);
+        testAdd(5);
+
         System.out.println("\nList now contains objects: " + aList.toString());
         System.out.println("Is EMPTY? " + aList.isEmpty());
         System.out.println("Has size? " + aList.size());
 
+        aStack = new StackImpl(aList);
 
-        System.out.println("\n**STACK**");
-        /* create Stack */
+        System.out.println("\nStack now contains objects: " + aStack.toString());
+        System.out.println("Is EMPTY? " + aStack.isEmpty());
+        System.out.println("Has size? " + aStack.size());
 
-        Stack stack = new StackImpl(aList);
+        aStack.push(2);
+        aStack.push("item36");
+        aStack.push(7658);
 
-        System.out.println("\nStack is EMPTY? " + stack.isEmpty());
-        System.out.println("Stack has size? " + stack.size());
-        System.out.println("Stack now contains objects: " + stack.toString());
+        System.out.println("\nStack now contains objects: " + aStack.toString());
+        System.out.println("Is EMPTY? " + aStack.isEmpty());
+        System.out.println("Has size? " + aStack.size());
 
-        System.out.println("\nPushing objects to Stack...\n");
+        testTop();
+        testTop();
 
-        stack.push(3);
-        System.out.println("Stack now contains objects: " + stack.toString());
+        System.out.println("\nStack now contains objects: " + aStack.toString());
+        System.out.println("Is EMPTY? " + aStack.isEmpty());
+        System.out.println("Has size? " + aStack.size());
 
-        stack.push("item4");
-        System.out.println("Stack now contains objects: " + stack.toString());
+        testPop();
+        testPop();
 
-        System.out.println("\nPopping objects from Stack...\n");
+        System.out.println("\nStack now contains objects: " + aStack.toString());
+        System.out.println("Is EMPTY? " + aStack.isEmpty());
+        System.out.println("Has size? " + aStack.size());
 
-        stack.pop();
-        System.out.println("Stack now contains objects: " + stack.toString());
+        testPop();
+        testPop();
+        testPop();
+        testPop();
+        testPop();
+        testPop();
+        testPop();
+        testPop();
 
-        stack.pop();
-        System.out.println("Stack now contains objects: " + stack.toString());
+        System.out.println("\nStack now contains objects: " + aStack.toString());
+        System.out.println("Is EMPTY? " + aStack.isEmpty());
+        System.out.println("Has size? " + aStack.size());
 
-        System.out.println("\nGet Top of Stack...\n"
-                + "\t" + stack.top().getError()
-                + "\n\t"  + stack.top().getReturnValue().toString());
+        testTop();
 
-        System.out.println("\nPopping objects from Stack...\n");
+        System.out.println("\nStack now contains objects: " + aStack.toString());
+        System.out.println("Is EMPTY? " + aStack.isEmpty());
+        System.out.println("Has size? " + aStack.size());
 
-        stack.pop();
-        System.out.println("Stack now contains objects: " + stack.toString());
+        aStack.push(4768);
+        aStack.push("item345");
+        aStack.push(97);
 
-        stack.pop();
-        System.out.println("Stack now contains objects: " + stack.toString());
-
-        stack.pop();
-        System.out.println("Stack now contains objects: " + stack.toString());
-
-        System.out.println("\nGet Top of Stack...\n"
-                + "\t" + stack.top().getError());
-
-        System.out.println("Stack now contains objects: " + stack.toString());
-
+        System.out.println("\nStack now contains objects: " + aStack.toString());
+        System.out.println("Is EMPTY? " + aStack.isEmpty());
+        System.out.println("Has size? " + aStack.size());
 
     }
+
+    private void testAdd(Object o) {
+
+        ReturnObject ret = aList.add(o);
+
+        if (!ret.hasError()) {
+            System.out.println("\nAdding object " + o.toString() + " to end of list.");
+        } else {
+            System.out.println("\nError adding object:"
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
+    private void testTop() {
+
+        ReturnObject ret = aStack.top();
+
+        if (!ret.hasError()) {
+            System.out.println("\nGetting top of stack: "
+                    + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError getting top of stack."
+                    + "\n" + ret.getError());
+        }
+
+    }
+
+    private void testPop() {
+
+        ReturnObject ret = aStack.pop();
+
+        if (!ret.hasError()) {
+            System.out.println("\nGetting top of stack: "
+                    + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError getting top of stack."
+                    + "\n" + ret.getError());
+        }
+
+    }
+
 }
