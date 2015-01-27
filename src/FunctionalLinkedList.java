@@ -1,5 +1,7 @@
 /**
  * Created by Basil on 28/12/2014.
+ *
+ * Functional List implementation based on pointers
  */
 public class FunctionalLinkedList extends LinkedList implements FunctionalList {
 
@@ -13,11 +15,14 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
      */
     public ReturnObject head() {
 
-        ReturnObject ret;
+        ReturnObject ret, head;   // return object
 
-        ret = new ReturnObjectImpl(this.get(0).getReturnValue().toString(), this.get(0).getError());
+        head = this.get(0); // get return object from head of list
 
-        return ret;
+        // copy data into new object
+        ret = new ReturnObjectImpl(head.getReturnValue(), head.getError());
+
+        return ret; // return object
 
     }
 
@@ -30,20 +35,19 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
      */
     public FunctionalList rest() {
 
-        FunctionalList ret = new FunctionalLinkedList();
-        int size = this.size();
+        FunctionalList ret = new FunctionalLinkedList();  // return list
 
-        if (size > 0) {
+        int size = this.size(); // current size
 
-            for (int i = 1; i < this.size(); i++) {
+        if (size > 0) { // if list is non-empty, populate with all but head, i.e. get(0)
 
+            for (int i = 1; i < size; i++) {
                 ret.add(this.get(i).getReturnValue());
-
             }
 
         }
 
-        return ret;
+        return ret; // return list
 
     }
 }

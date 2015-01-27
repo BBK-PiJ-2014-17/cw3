@@ -3,33 +3,28 @@
  */
 public class FunctionalLinkedListTest {
 
+    private FunctionalLinkedList aList;
+
     public static void main(String[] args) {
 
         System.out.println("***\tFunctional Linked List Test Module\t***\n");
 
-        FunctionalLinkedList aList = new FunctionalLinkedList();
+        FunctionalLinkedListTest fllt = new FunctionalLinkedListTest();
+        fllt.launch();
 
-        /* FUNCTIONAL TESTS */
+    }
+
+    private void launch() {
+
+        aList = new FunctionalLinkedList();
+
+        /* FUNCTIONAL & ERROR TESTS */
 
         System.out.println("Initial EMPTY list: " + aList.toString());
         System.out.println("Is EMPTY? " + aList.isEmpty());
         System.out.println("Has size? " + aList.size());
 
-        // Add objects to EMPTY list...
-
-        System.out.println("\nAdding objects to the end of the list...\n");
-
-        System.out.println("\t" + aList.add(1).getError());
-        System.out.println("\t" + aList.add("item2").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
-
-        // Get list Head...
-
-        System.out.println("\nHead of List:\n"
-                + "\t" + aList.head().getError()
-                + "\n\t"  +aList.head().getReturnValue().toString());
+        testGetHead();
 
         // Get rest...
 
@@ -37,5 +32,104 @@ public class FunctionalLinkedListTest {
         System.out.println("Is EMPTY? " + aList.rest().isEmpty());
         System.out.println("Has size? " + aList.rest().size());
 
+        System.out.println("\nAdding objects to the end of the list...");
+
+        testAdd(1);
+        testAdd("item2");
+        testAdd("item3");
+        testAdd(4);
+        testAdd(null);
+        testAdd(5);
+
+        System.out.println("\nList now contains objects: " + aList.toString());
+        System.out.println("Is EMPTY? " + aList.isEmpty());
+        System.out.println("Has size? " + aList.size());
+
+        // Get head and rest...
+
+        System.out.println("\nGet head and rest...");
+
+        testGetHead();
+
+        System.out.println("\nRest of list: " + aList.rest().toString());
+        System.out.println("Is EMPTY? " + aList.rest().isEmpty());
+        System.out.println("Has size? " + aList.rest().size());
+
+
     }
+
+    private void testGetHead() {
+
+        ReturnObject ret = aList.head();
+
+        if (!ret.hasError()) {
+            System.out.println("\nGetting head of list: "
+                    + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError getting head from list.\n"
+                    + ret.getError());
+        }
+
+    }
+
+    private void testGet(int index) {
+
+        ReturnObject ret = aList.get(index);
+
+        if (!ret.hasError()) {
+            System.out.println("\nGetting object from list at index " + index
+                    + ": "
+                    + "\n\t"  + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError getting object from list at index " + index
+                    + ": "
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
+    private void testAdd(Object o) {
+
+        ReturnObject ret = aList.add(o);
+
+        if (!ret.hasError()) {
+            System.out.println("\nAdding object " + o.toString() + " to end of list.");
+        } else {
+            System.out.println("\nError adding object:"
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
+    private void testAddAtIndex(int index, Object o) {
+
+        ReturnObject ret = aList.add(index, o);
+
+        if (!ret.hasError()) {
+            System.out.println("\nAdding object " + o.toString() + " at index "
+                    + index + ".");
+        } else {
+            System.out.println("\nError adding object at index "
+                    + index + "."
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
+    private void testRemove(int index) {
+
+        ReturnObject ret = aList.remove(index);
+
+        if (!ret.hasError()) {
+            System.out.println("\nRemoving object at index "
+                    + index + " returns: "
+                    + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError removing object at index "
+                    + index + "."
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
 }

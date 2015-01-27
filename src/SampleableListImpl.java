@@ -1,5 +1,7 @@
 /**
  * Created by Basil on 28/12/2014.
+ *
+ * implementation of sampleable list based on array structure
  */
 public class SampleableListImpl extends ArrayList implements SampleableList {
 
@@ -11,20 +13,18 @@ public class SampleableListImpl extends ArrayList implements SampleableList {
      */
     public SampleableList sample() {
 
-        SampleableList ret = new SampleableListImpl();
-        int size = this.size();
+        SampleableList ret = new SampleableListImpl();  // return list
+        int size = this.size(); // get size
 
-        if (size > 0) {
+        if (size > 0) { // if list non-empty populate with odd elements of list
 
-            for (int i = 0; i < this.size(); i+=2) {
-
+            for (int i = 0; i < size; i+=2) {   // step by 2 to get odd elements
                 ret.add(this.get(i).getReturnValue());
-
             }
 
         }
 
-        return ret;
+        return ret; // return list
 
     }
 

@@ -3,41 +3,158 @@
  */
 public class SampleableListImplTest {
 
+    private SampleableList aList;
+
     public static void main(String[] args) {
 
         System.out.println("***\tSampleable List Test Module\t***\n");
 
-        SampleableList aList = new SampleableListImpl();
+        SampleableListImplTest slit = new SampleableListImplTest();
+        slit.launch();
 
-        /* FUNCTIONAL TESTS */
+    }
+
+    private void launch() {
+
+        aList = new SampleableListImpl();
+
+        List sample;
+
+        /* FUNCTIONAL & ERROR TESTS */
 
         System.out.println("Initial EMPTY list: " + aList.toString());
         System.out.println("Is EMPTY? " + aList.isEmpty());
         System.out.println("Has size? " + aList.size());
 
-        // Add objects to EMPTY list...
+        sample = aList.sample();
 
-        System.out.println("\nAdding objects to the end of the list...\n");
+        System.out.println("\nOriginal List:\t" + aList.toString());
+        System.out.println("Sample of list:\t" + sample.toString());
+        System.out.println("Is EMPTY? " + sample.isEmpty());
+        System.out.println("Has size? " + sample.size());
 
-        System.out.println("\t" + aList.add(1).getError());
-        System.out.println("\t" + aList.add("item2").getError());
-        System.out.println("\t" + aList.add(3).getError());
-        System.out.println("\t" + aList.add("item4").getError());
-        System.out.println("\t" + aList.add(5).getError());
-        System.out.println("\t" + aList.add("item6").getError());
-        //System.out.println("\t" + aList.add(7).getError());
-        //System.out.println("\t" + aList.add("item8").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        testAdd(1);
+        testAdd("item2");
+        testAdd("item3");
+        testAdd(4);
+        testAdd(null);
+        testAdd(5);
 
-        // Add objects to EMPTY list...
+        sample = aList.sample();
 
-        System.out.println("\nGetting sample...\n");
+        System.out.println("\nOriginal List:\t" + aList.toString());
+        System.out.println("Sample of list:\t" + sample.toString());
+        System.out.println("Is EMPTY? " + sample.isEmpty());
+        System.out.println("Has size? " + sample.size());
 
-        System.out.println("\nSample of list: " + aList.sample().toString());
-        System.out.println("Is EMPTY? " + aList.sample().isEmpty());
-        System.out.println("Has size? " + aList.sample().size());
+        testRemove(2);
+        testRemove(3);
+        testRemove(1);
+
+        sample = aList.sample();
+
+        System.out.println("\nOriginal List:\t" + aList.toString());
+        System.out.println("Sample of list:\t" + sample.toString());
+        System.out.println("Is EMPTY? " + sample.isEmpty());
+        System.out.println("Has size? " + sample.size());
+
+        testRemove(0);
+
+        sample = aList.sample();
+
+        System.out.println("\nOriginal List:\t" + aList.toString());
+        System.out.println("Sample of list:\t" + sample.toString());
+        System.out.println("Is EMPTY? " + sample.isEmpty());
+        System.out.println("Has size? " + sample.size());
+
+        testRemove(0);
+
+        sample = aList.sample();
+
+        System.out.println("\nOriginal List:\t" + aList.toString());
+        System.out.println("Sample of list:\t" + sample.toString());
+        System.out.println("Is EMPTY? " + sample.isEmpty());
+        System.out.println("Has size? " + sample.size());
+
+        testAdd(234);
+        testAdd("hello");
+        testAdd("football");
+        testAdd(5);
+        testAdd(190);
+        testAdd("food");
+        testAdd(1);
+        testAdd("stuff");
+        testAdd("random");
+        testAdd(78);
+        testAdd(null);
+        testAdd(5);
+
+        sample = aList.sample();
+
+        System.out.println("\nOriginal List:\t" + aList.toString());
+        System.out.println("Sample of list:\t" + sample.toString());
+        System.out.println("Is EMPTY? " + sample.isEmpty());
+        System.out.println("Has size? " + sample.size());
+
+    }
+
+    private void testGet(int index) {
+
+        ReturnObject ret = aList.get(index);
+
+        if (!ret.hasError()) {
+            System.out.println("\nGetting object from list at index " + index
+                    + ": "
+                    + "\n\t"  + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError getting object from list at index " + index
+                    + ": "
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
+    private void testAdd(Object o) {
+
+        ReturnObject ret = aList.add(o);
+
+        if (!ret.hasError()) {
+            System.out.println("\nAdding object " + o.toString() + " to end of list.");
+        } else {
+            System.out.println("\nError adding object:"
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
+    private void testAddAtIndex(int index, Object o) {
+
+        ReturnObject ret = aList.add(index, o);
+
+        if (!ret.hasError()) {
+            System.out.println("\nAdding object " + o.toString() + " at index "
+                    + index + ".");
+        } else {
+            System.out.println("\nError adding object at index "
+                    + index + "."
+                    + "\n\t" + ret.getError());
+        }
+
+    }
+
+    private void testRemove(int index) {
+
+        ReturnObject ret = aList.remove(index);
+
+        if (!ret.hasError()) {
+            System.out.println("\nRemoving object at index "
+                    + index + " returns: "
+                    + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError removing object at index "
+                    + index + "."
+                    + "\n\t" + ret.getError());
+        }
 
     }
 }

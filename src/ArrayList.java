@@ -10,7 +10,7 @@ public class ArrayList implements List {
     private Object[] data;  // object array for list content
     private int size;       // list size, to be maintained by class methods
 
-    //constructors
+    // constructors
 
     /**
      * default constructor
@@ -54,7 +54,11 @@ public class ArrayList implements List {
 
         ReturnObject ret;
 
-        if (index > size || index < 0) {
+        // empty array error when size = 0
+
+        if (size == 0) {    // if list is empty do nothing and return error
+            ret = new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+        } else if (index > size || index < 0) {
             ret = new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
         } else {
             ret = new ReturnObjectImpl(data[index], ErrorMessage.NO_ERROR);
@@ -77,11 +81,13 @@ public class ArrayList implements List {
      */
     public ReturnObject remove(int index) {
 
-        ReturnObject ret;
+        ReturnObject ret;   // return object
 
-        if (index > size || index < 0) {    // index out of bounds
+        if (size == 0) {  // empty structure
+            ret = new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+        } else if (index > size || index < 0) {    // if index out of bounds do nothing and return error
             ret = new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
-        } else {
+        } else {    // remove object
             ret = new ReturnObjectImpl(data[index], ErrorMessage.NO_ERROR);
             shiftListLeftFromIndex(index);  // update indices
             size--; // decrease size of list
@@ -230,7 +236,6 @@ public class ArrayList implements List {
         data = tmp;
 
     }
-
 
     /**
      * internal operation to maintain integrity of list indices after object removal

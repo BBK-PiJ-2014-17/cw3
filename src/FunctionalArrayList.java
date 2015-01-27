@@ -1,5 +1,7 @@
 /**
  * Created by Basil on 28/12/2014.
+ *
+ * Functional List implementation based on array structure
  */
 public class FunctionalArrayList extends ArrayList implements FunctionalList {
 
@@ -13,11 +15,14 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
      */
     public ReturnObject head() {
 
-        ReturnObject ret;
+        ReturnObject ret, head;   // return object
 
-        ret = new ReturnObjectImpl(this.get(0).getReturnValue().toString(), this.get(0).getError());
+        head = this.get(0); // get return object from head of list
 
-        return ret;
+        // copy data into new object
+        ret = new ReturnObjectImpl(head.getReturnValue(), head.getError());
+
+        return ret; // return object
 
     }
 
@@ -30,24 +35,18 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList {
      */
     public FunctionalList rest() {
 
-        FunctionalList ret = new FunctionalArrayList();
-        int size = this.size();
+        FunctionalList ret = new FunctionalArrayList(); // return list
+        int size = this.size(); // current size
 
-        if (size > 0) {
+        if (size > 0) { // if list is non-empty, populate with all but head, i.e. get(0)
 
-            for (int i = 1; i < this.size(); i++) {
-
+            for (int i = 1; i < size; i++) {
                 ret.add(this.get(i).getReturnValue());
-
-                //System.out.println("ret EMPTY list: " + this.toString());
-                //System.out.println("ret Is EMPTY? " + this.isEmpty());
-                //System.out.println("ret Has size? " + this.size());
-
             }
 
         }
 
-        return ret;
+        return ret; // return list
 
     }
 

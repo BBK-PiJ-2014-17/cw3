@@ -11,7 +11,7 @@
  * 
  * Not all operations on a list will always be successful. For
  * example, a programmer may try to remove an element from an empty
- * list, or from a position where there is nothing. Since we hace not
+ * list, or from a position where there is nothing. Since we have not
  * covered exceptions yet, we need another mechanism to report
  * errors. In order to do that, methods of this list will return a
  * {@see ReturnObject} that will contain either an object or an error
