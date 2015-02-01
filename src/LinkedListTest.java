@@ -18,11 +18,7 @@ public class LinkedListTest {
 
         aList = new LinkedList();
 
-        /* FUNCTIONAL & ERROR TESTS */
-
-        System.out.println("Initial EMPTY list: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
         System.out.println("\nAdding objects to the end of the list...");
 
@@ -33,11 +29,9 @@ public class LinkedListTest {
         testAdd(null);
         testAdd(5);
 
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
-        // Get object from list...
+        System.out.println("\nGetting objects from the list...");
 
         testGet(0);
         testGet(1);
@@ -46,23 +40,24 @@ public class LinkedListTest {
         testGet(4);
         testGet(5);
         testGet(100);
+        testGet(-3);
 
-        // Insert objects at index...
+        inspectList(aList);
 
-        System.out.println("\nInserting objects to specific index...");
+        System.out.println("\nInserting objects to specific indices...");
 
         testAddAtIndex(1, "item10");
         testAddAtIndex(0, 11);
         testAddAtIndex(5, "12");
         testAddAtIndex(10, 13);
-        testAddAtIndex(10, null);
+        testAddAtIndex(3, null);
         testAddAtIndex(1, "item14");
+        testAddAtIndex(-1, "item14");
+        testAddAtIndex(1, "item19");
+        testAddAtIndex(1, "item18");
+        testAddAtIndex(1, "item17");
 
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
-
-        // Remove objects at index...
+        inspectList(aList);
 
         System.out.println("\nRemoving objects from specific index...");
 
@@ -70,33 +65,66 @@ public class LinkedListTest {
         testRemove(2);
         testRemove(100);
         testRemove(0);
+        testRemove(2);
+        testRemove(0);
+        testRemove(5);
+        testRemove(0);
+        testRemove(-1);
         testRemove(0);
         testRemove(0);
+        testRemove(5);
         testRemove(0);
-        testRemove(0);
-        testRemove(0);
+
+        inspectList(aList);
+
         testRemove(0);
         testRemove(0);
         testRemove(0);
         testRemove(0);
 
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
-        // Further general tests
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
 
-        System.out.println("\nFurther tests...");
+        inspectList(aList);
 
-        testAdd(5);
-        testRemove(0);
-        testAddAtIndex(0, 11);
-        testGet(1);
+    }
 
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
-
+    private void inspectList(List l) {
+        System.out.println("\nList: " + l.toString());
+        System.out.println("Is EMPTY? " + l.isEmpty());
+        System.out.println("Has size? " + l.size());
     }
 
     private void testGet(int index) {
