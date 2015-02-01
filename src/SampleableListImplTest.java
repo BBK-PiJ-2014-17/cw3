@@ -96,6 +96,15 @@ public class SampleableListImplTest {
         System.out.println("Is EMPTY? " + sample.isEmpty());
         System.out.println("Has size? " + sample.size());
 
+        // check changes to sample do not affect original.
+
+        sample.add("test");
+
+        System.out.println("\nOriginal List:\t" + aList.toString());
+        System.out.println("Sample of list:\t" + sample.toString());
+        System.out.println("Is EMPTY? " + sample.isEmpty());
+        System.out.println("Has size? " + sample.size());
+
     }
 
     private void testGet(int index) {

@@ -18,7 +18,7 @@ public interface ImprovedStack extends Stack {
 	/**
 	 * Returns a copy of this stack with the items reversed, the top
 	 * elements on the original stack is at the bottom of the new
-	 * stack and viceversa.
+	 * stack and vice versa.
 	 * 
 	 * @return a copy of this stack with the items reversed. 
 	 */

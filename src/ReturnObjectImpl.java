@@ -9,8 +9,8 @@ public class ReturnObjectImpl implements ReturnObject {
 
     // class variables
 
-    private ErrorMessage err;
-    private Object data;
+    private ErrorMessage err;   // error message
+    private Object data;        // return object content
 
     // constructors
 
