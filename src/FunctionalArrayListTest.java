@@ -20,17 +20,13 @@ public class FunctionalArrayListTest {
 
         /* FUNCTIONAL & ERROR TESTS */
 
-        System.out.println("Initial EMPTY list: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
         testGetHead();
 
         // Get rest...
 
-        System.out.println("\nRest of list: " + aList.rest().toString());
-        System.out.println("Is EMPTY? " + aList.rest().isEmpty());
-        System.out.println("Has size? " + aList.rest().size());
+        inspectList(aList.rest());
 
         System.out.println("\nAdding objects to the end of the list...");
 
@@ -41,9 +37,7 @@ public class FunctionalArrayListTest {
         testAdd(null);
         testAdd(5);
 
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
         // Get head and rest...
 
@@ -51,10 +45,14 @@ public class FunctionalArrayListTest {
 
         testGetHead();
 
-        System.out.println("\nRest of list: " + aList.rest().toString());
-        System.out.println("Is EMPTY? " + aList.rest().isEmpty());
-        System.out.println("Has size? " + aList.rest().size());
+        List rest = aList.rest();
+        inspectList(rest);
 
+        System.out.println("\nTest changes to rest do not affect original list...");
+
+        rest.add("test");
+        inspectList(aList);
+        inspectList(rest);
 
     }
 
@@ -66,10 +64,16 @@ public class FunctionalArrayListTest {
             System.out.println("\nGetting head of list: "
                                 + ret.getReturnValue().toString());
         } else {
-            System.out.println("\nError getting head from list.\n"
+            System.out.println("\nError getting head from list.\n\t"
                                 + ret.getError());
         }
 
+    }
+
+    private void inspectList(List l) {
+        System.out.println("\nList: " + l.toString());
+        System.out.println("Is EMPTY? " + l.isEmpty());
+        System.out.println("Has size? " + l.size());
     }
 
     private void testGet(int index) {
