@@ -95,6 +95,30 @@ public class StackImplTest {
         System.out.println("Is EMPTY? " + aStack.isEmpty());
         System.out.println("Has size? " + aStack.size());
 
+        Stack newStack = new StackImpl();
+
+        System.out.println("\nNew stack now contains objects: " + newStack.toString());
+        System.out.println("Is EMPTY? " + newStack.isEmpty());
+        System.out.println("Has size? " + newStack.size());
+
+        ReturnObject ret = newStack.pop();
+
+        if (!ret.hasError()) {
+            System.out.println("\nGetting top of stack: "
+                    + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError getting top of stack."
+                    + "\n" + ret.getError());
+        }
+
+        newStack.push(4768);
+        newStack.push("item345");
+        newStack.push(97);
+
+        System.out.println("\nNew stack now contains objects: " + newStack.toString());
+        System.out.println("Is EMPTY? " + newStack.isEmpty());
+        System.out.println("Has size? " + newStack.size());
+
     }
 
     private void testAdd(Object o) {
@@ -129,10 +153,10 @@ public class StackImplTest {
         ReturnObject ret = aStack.pop();
 
         if (!ret.hasError()) {
-            System.out.println("\nGetting top of stack: "
+            System.out.println("\nPopping top of stack: "
                     + ret.getReturnValue().toString());
         } else {
-            System.out.println("\nError getting top of stack."
+            System.out.println("\nError popping top of stack."
                     + "\n" + ret.getError());
         }
 

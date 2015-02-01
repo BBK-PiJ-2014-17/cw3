@@ -3,13 +3,24 @@
  *
  * implementation of stack
  * treat zero-th element of the underlying list structure as the top of the stack
+ * Status: Final.
  */
 public class StackImpl extends AbstractStack {
 
     // constructors
 
     /**
-     * construct stack with underlying list structure
+     * default constructor
+     * create empty list as underlying list structure, using linked lists
+     * call super constructor to set list
+     */
+    public StackImpl(){
+        super(new LinkedList());
+    }
+
+    /**
+     * list constructor
+     * create stack with existing underlying list structure
      * call super constructor to set list
      * @param list underlying data structure
      */
@@ -17,31 +28,32 @@ public class StackImpl extends AbstractStack {
         super(list);
     }
 
-    /**
-     * Returns true if the stack is empty, false otherwise.
-     *
-     * @return true if the stack is empty, false otherwise.
+    // inherited methods
+
+    /** {@inheritDoc}
+     * checks size of underlying list structure before returning boolean
+     * @return returns true or false
      */
+    @Override
     public boolean isEmpty() {
         // check size of underlying list structure
         return (internalList.size() == 0) ? true : false;
     }
 
-    /**
-     * Returns the number of items currently in the stack.
-     *
-     * @return the number of items currently in the stack
+    /** {@inheritDoc}
+     * @return returns instance variable size of underlying list structure
      */
+    @Override
     public int size() {
         // return size of underlying list structure
         return internalList.size();
     }
 
-    /**
-     * Adds an element at the top of the stack.
-     *
-     * @param item the new item to be added
+    /** {@inheritDoc}
+     * push object onto stack by adding it to the zero-th element of the underlying list structure
+     * @param item to be added
      */
+    @Override
     public void push(Object item) {
         // add element to beginning of underlying list structure
         if (size() == 0) {  // if list empty use default add to end method
@@ -51,46 +63,31 @@ public class StackImpl extends AbstractStack {
         }
     }
 
-    /**
-     * Returns the element at the top of the stack. The stack is
-     * left unchanged.
-     *
-     * @return If stack is not empty, the item on the top is returned. If the
-     *         stack is empty, an appropriate error.
+    /** {@inheritDoc}
+     * view object at top of stack
+     * @return returns zero-th object of underlying list structure
      */
+    @Override
     public ReturnObject top() {
         // get element from beginning of underlying list structure
         return internalList.get(0);
     }
 
-    /**
-     * Returns the element at the top of the stack. The element is
-     * removed from the stack.
-     *
-     * @return If stack is not empty, the item on the top is returned. If the
-     *         stack is empty, an appropriate error.
+    /** {@inheritDoc}
+     * pop object at top of stack, and removes zero-th element from underlying list structure
+     * @return returns zero-th object of underlying list structure
      */
+    @Override
     public ReturnObject pop() {
-
-        //ReturnObject ret, pop;
-
-        //pop = internalList.remove(0);
-
-        //ret = new ReturnObjectImpl(pop.get, ErrorMessage.EMPTY_STRUCTURE);
-
-        /*
-        if (internalList.get(0).getReturnValue() == null) {
-            ret = new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
-        } else {
-            ret = new ReturnObjectImpl(internalList.get(0).getReturnValue(), internalList.get(0).getError());
-            internalList.remove(0);
-        }*/
-
-        //return ret;
-
         return internalList.remove(0);
     }
 
+    // class methods
+
+    /**
+     * view stack as string
+     * @return string representing stack
+     */
     public String toString() {
         return internalList.toString();
     }
