@@ -2,8 +2,8 @@
 /**
  * Created by Basil on 30/11/2014.
  *
- * Implements ReturnObject.
- *
+ * Implements ReturnObject {@see ReturnObject}
+ * Status: Final.
  */
 public class ReturnObjectImpl implements ReturnObject {
 
@@ -22,7 +22,7 @@ public class ReturnObjectImpl implements ReturnObject {
     }
 
     /**
-     * data only constructor, no error
+     * data only constructor, no error by default
      * @param data contains data part of returnObject
      */
     public ReturnObjectImpl(Object data) {
@@ -32,29 +32,29 @@ public class ReturnObjectImpl implements ReturnObject {
     /**
      * fully initialised constructor
      * @param data contains data part of returnObject
-     * @param err contains error message for returnObject
+     * @param err contains error message {@see ErrorMessage} for returnObject
      */
     public ReturnObjectImpl(Object data, ErrorMessage err) {
         this.data = data;
         this.err = err;
     }
 
-    /**
-     * Returns whether there has been an error
-     * @return whether there has been an error
+    // class methods
+
+    /** {@inheritDoc}
+     * checks err before returning boolean
+     * @return returns true or false
      */
+    @Override
     public boolean hasError() {
         return (this.err == ErrorMessage.NO_ERROR) ? false : true;
     }
 
-    /**
-     * Returns the error message.
-     *
-     * This method must return NO_ERROR if and only if
-     * {@hasError} returns false.
-     *
-     * @return the error message
+    /** {@inheritDoc}
+     * checks {@see hasError} before returning error
+     * @return returns NO_ERROR or err
      */
+    @Override
     public ErrorMessage getError() {
         if (!hasError()) {
             return ErrorMessage.NO_ERROR;
@@ -63,19 +63,11 @@ public class ReturnObjectImpl implements ReturnObject {
         }
     }
 
-    /**
-     * Returns the object wrapped in this ReturnObject, i.e. the
-     * result of the operation if it was successful, or null if
-     * there has been error.
-     *
-     * Note that the output of this method must be null if {@see
-     * hasError} returns true, but the opposite is not true: if
-     * {@see hasError} returns false, this method may or may not
-     * return null.
-     *
-     * @return the return value from the method or null if there has been an
-     *         error
+    /** {@inheritDoc}
+     * checks {@see hasError} before returning data
+     * @return returns null or data
      */
+    @Override
     public Object getReturnValue() {
         return (hasError()) ? null : data;
     }
