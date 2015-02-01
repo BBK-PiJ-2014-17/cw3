@@ -2,6 +2,7 @@
  * Created by Basil on 22/12/2014.
  *
  * List implementation based on array structure
+ * Status: Final.
  */
 public class ArrayList implements List {
 
@@ -14,168 +15,133 @@ public class ArrayList implements List {
 
     /**
      * default constructor
-     * arbitrary object array start size, could be optimised based on demand on list
+     * arbitrary object array start size
      */
     public ArrayList() {
-        data = new Object[5];
+        data = new Object[10];
         size = 0;
     }
 
-    // class methods
-
     /**
-     * check if list is empty, based on class variable size
-     * @return true if size is zero
+     * size constructor
+     * choice underlying array size for optimization purposes
      */
+    public ArrayList(int n) {
+        data = new Object[n];
+        size = 0;
+    }
+
+    // interface methods
+
+    /** {@inheritDoc}
+     * checks instance variable size before returning boolean
+     * @return returns true or false
+     */
+    @Override
     public boolean isEmpty() {
         return (size == 0) ? true : false;
     }
 
-    /**
-     * Returns the number of items currently in the list.
-     *
-     * @return the number of items currently in the list
+    /** {@inheritDoc}
+     * @return returns instance variable size
      */
+    @Override
     public int size() {
         return size;
     }
 
-    /**
-     * Returns the elements at the given position.
-     *
-     * If the index is negative or greater or equal than the size of
-     * the list, then an appropriate error must be returned.
-     *
-     * @param index the position in the list of the item to be retrieved
-     * @return the element or an appropriate error message,
-     *         encapsulated in a ReturnObject
+    /** {@inheritDoc}
+     * @param index sets index of object to get
+     * @return returns object at index or error
      */
+    @Override
     public ReturnObject get(int index) {
 
-        ReturnObject ret;
-
-        // empty array error when size = 0
+        ReturnObject ret;   // return object
 
         if (size == 0) {    // if list is empty do nothing and return error
             ret = new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
-        } else if (index > size || index < 0) {
+        } else if (index >= size || index < 0) { // if index out of bounds do nothing and return error
             ret = new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
-        } else {
+        } else {    // access underlying data array at given index and return object
             ret = new ReturnObjectImpl(data[index], ErrorMessage.NO_ERROR);
         }
 
-        return ret;
+        return ret; // return object
     }
 
-    /**
-     * Returns the elements at the given position and removes it
-     * from the list. The indices of elements after the removed
-     * element must be updated accordingly.
-     *
-     * If the index is negative or greater or equal than the size of
-     * the list, then an appropriate error must be returned.
-     *
-     * @param index the position in the list of the item to be retrieved
-     * @return the element or an appropriate error message,
-     *         encapsulated in a ReturnObject
+    /** {@inheritDoc}
+     * @param index sets index of object to remove
+     * @return returns object at index or error
      */
+    @Override
     public ReturnObject remove(int index) {
 
         ReturnObject ret;   // return object
 
-        if (size == 0) {  // empty structure
+        if (size == 0) {  // if list is empty do nothing and return error
             ret = new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
         } else if (index > size || index < 0) {    // if index out of bounds do nothing and return error
             ret = new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
-        } else {    // remove object
+        } else {    // access underlying data array, return and remove object
             ret = new ReturnObjectImpl(data[index], ErrorMessage.NO_ERROR);
-            shiftListLeftFromIndex(index);  // update indices
+            shiftListLeftFromIndex(index);  // update indices to remove object
             size--; // decrease size of list
         }
 
-        return ret;
+        return ret; // return object
 
     }
 
-    /**
-     * Adds an element to the list, inserting it at the given
-     * position. The indices of elements at and after that position
-     * must be updated accordingly.
-     *
-     * If the index is negative or greater or equal than the size of
-     * the list, then an appropriate error must be returned.
-     *
-     * If a null object is provided to insert in the list, the
-     * request must be ignored and an appropriate error must be
-     * returned.
-     *
-     * @param index the position at which the item should be inserted in
-     *              the list
-     * @param item the value to insert into the list
-     * @return an ReturnObject, empty if the operation is successful
-     *         the item added or containing an appropriate error message
+    /** {@inheritDoc}
+     * @param index sets index at which to add object
+     * @param item provides object to be added, cannot be null
+     * @return returns added object or error
      */
+    @Override
     public ReturnObject add(int index, Object item) {
 
-        ReturnObject ret;
+        ReturnObject ret;   // return object
 
         if (item == null) { // if null object added do nothing and return error
             ret = new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
         } else if (index > size || index < 0) { // if index out of bounds do nothing and report error
             ret = new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
-        } else {    // add object to list
+        } else {    // add object to underlying data array
             shiftListRightFromIndex(index); // update indices of all objects, leaving a null object at given index
             data[index] = item; // overwrite null object at given index with new object
             size++; // increase size of list
             ret = new ReturnObjectImpl(item, ErrorMessage.NO_ERROR);    //  return object added with no error
         }
 
-        return ret;
+        return ret; // return object
 
     }
 
-    /**
-     * Adds an element at the end of the list.
-     *
-     * If a null object is provided to insert in the list, the
-     * request must be ignored and an appropriate error must be
-     * returned.
-     *
-     * @param item the value to insert into the list
-     * @return an ReturnObject, empty if the operation is successful
-     *         the item added or containing an appropriate error message
+    /** {@inheritDoc}
+     * @param item provides object to be added, cannot be null
+     * @return returns added object or error
      */
+    @Override
     public ReturnObject add(Object item) {
 
-        ReturnObject ret;
+        ReturnObject ret;   // return object
 
         if (item == null) { // if null object added do nothing and return error
             ret = new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
-        } else {
-
-            if (size + 1 > data.length) {
-                adjustListSize();
-            }
-
-            int index = 0;  // start at top of array
-
-            // scan down array until null object reached, signaling end of array content
-            // should match class variable size...
-            while(data[index] != null) {
-
-                index++;
-
-            }
-
-            data[index] = item; // add new object to end of list
+        } else {    // add object to end of underlying array
+            if (size + 1 > data.length) // check underlying array capacity
+                adjustListSize();    // if addition of element requires extra space, adjust array
+            data[size] = item;  // add new object
             size++; // increment list size
             ret = new ReturnObjectImpl(item, ErrorMessage.NO_ERROR);    // return object added with no error
-
         }
 
-        return ret;
+        return ret; // return object
 
     }
+
+    // class methods
 
     /**
      * internal operation to adjust capacity of underlying content array
@@ -184,8 +150,8 @@ public class ArrayList implements List {
      */
     private void adjustListSize() {
 
-        int oldLength = data.length;
-        int newLength = oldLength * 2;  // doubled capacity
+        int oldLength = data.length;    // current capacity
+        int newLength = oldLength * 2;  // increased capacity
         Object[] tmp = new Object[newLength]; // temporary array
 
         // populate new array wih content
@@ -195,7 +161,6 @@ public class ArrayList implements List {
         }
 
         // point data variable to array with newly increased capacity
-
         data = tmp;
 
     }
@@ -207,12 +172,11 @@ public class ArrayList implements List {
      * leaves null object at given array
      * continues to populate temporary array with data content at index + 1
      * points class variable data to now populated temporary array
-     * @param index
+     * @param index gives point in data array past which object should be shifted
      */
     private void shiftListRightFromIndex(int index) {
 
         // if list with added object exceeds current capacity, adjust the size of the array
-
         if (size + 1 >= data.length) {
             adjustListSize();
         }
@@ -220,19 +184,16 @@ public class ArrayList implements List {
         Object[] tmp = new Object[data.length]; // create temporary array
 
         // populate temporary array wih data content up to given index
-
         for (int i = 0 ; i < index ; i++) {
             tmp[i] = data[i];
         }
 
         // populate remainder of temporary array with data content
-
         for (int i = index ; i < tmp.length -1 ; i++) {
             tmp[i + 1] = data[i];
         }
 
         // point data array to newly constructed array with corrected content indices
-
         data = tmp;
 
     }
@@ -250,19 +211,16 @@ public class ArrayList implements List {
         Object[] tmp = new Object[data.length]; //  create temporary array
 
         // populate temporary array with data content up to given index
-
         for (int i = 0 ; i < index ; i++) {
             tmp[i] = data[i];
         }
 
         // skip index and continue to copy data until all data content copied
-
         for (int i = index + 1 ; i < tmp.length ; i++) {
             tmp[i - 1] = data[i];
         }
 
         // point data array to newly constructed array with corrected content indices
-
         data = tmp;
 
     }

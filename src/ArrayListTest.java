@@ -3,160 +3,187 @@
  */
 public class ArrayListTest {
 
+    private List aList;
+
     public static void main(String[] args) {
 
-        System.out.println("***\tArray List Test Module\t***\n");
+        System.out.println("***\tArray List Test Module\t***");
 
-        List aList = new ArrayList();
+        ArrayListTest alt = new ArrayListTest();
+        alt.launch();
 
-        /* FUNCTIONAL TESTS */
+    }
 
-        System.out.println("Initial EMPTY list: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+    private void launch() {
 
-        // Add objects to EMPTY list...
+        aList = new ArrayList();
 
-        System.out.println("\nAdding objects to the end of the list...\n");
+        inspectList(aList);
 
-        System.out.println("\t" + aList.add(1).getError());
-        System.out.println("\t" + aList.add("item2").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        System.out.println("\nAdding objects to the end of the list...");
 
-        // Get object from list...
+        testAdd(1);
+        testAdd("item2");
+        testAdd("item3");
+        testAdd(4);
+        testAdd(null);
+        testAdd(5);
 
-        System.out.println("\nGetting object from list:\n"
-                            + "\t" + aList.get(1).getError()
-                            + "\n\t"  +aList.get(1).getReturnValue().toString());
+        inspectList(aList);
 
-        // Insert objects at index...
+        System.out.println("\nGetting objects from the list...");
 
-        System.out.println("\nInserting objects to specific index...\n");
+        testGet(0);
+        testGet(1);
+        testGet(2);
+        testGet(3);
+        testGet(4);
+        testGet(5);
+        testGet(100);
+        testGet(-3);
 
-        System.out.println("\t" + aList.add(1, 3).getError());
-        System.out.println("\t" + aList.add(1, "item4").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
-        // Remove objects at index...
+        System.out.println("\nInserting objects to specific indices...");
 
-        System.out.println("\nRemoving objects from specific index...\n");
+        testAddAtIndex(1, "item10");
+        testAddAtIndex(0, 11);
+        testAddAtIndex(5, "12");
+        testAddAtIndex(10, 13);
+        testAddAtIndex(3, null);
+        testAddAtIndex(1, "item14");
+        testAddAtIndex(-1, "item14");
+        testAddAtIndex(1, "item19");
+        testAddAtIndex(1, "item18");
+        testAddAtIndex(1, "item17");
 
-        System.out.println("\t" + aList.remove(0).getError());
-        System.out.println("\t" + aList.remove(2).getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
-        /* ERROR TESTING */
+        System.out.println("\nRemoving objects from specific index...");
 
-        // Get object out of bounds
+        testRemove(0);
+        testRemove(2);
+        testRemove(100);
+        testRemove(0);
+        testRemove(2);
+        testRemove(0);
+        testRemove(5);
+        testRemove(0);
+        testRemove(-1);
+        testRemove(0);
+        testRemove(0);
+        testRemove(5);
+        testRemove(0);
 
-        System.out.println("\nGetting objects from out of bounds...\n");
+        inspectList(aList);
 
-        System.out.println("\t" + aList.get(-10).getError());
-        System.out.println("\t" + aList.get(10).getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        testRemove(0);
+        testRemove(0);
+        testRemove(0);
+        testRemove(0);
 
-        // Remove object out of bounds
+        inspectList(aList);
 
-        System.out.println("\nRemoving objects from out of bounds...\n");
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
+        testAdd(1);
 
-        System.out.println("\t" + aList.remove(-1).getError());
-        System.out.println("\t" + aList.remove(7).getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        inspectList(aList);
 
-        // Adding object out of bounds
+    }
 
-        System.out.println("\nAdding objects from out of bounds...\n");
+    private void inspectList(List l) {
+        System.out.println("\nList: " + l.toString());
+        System.out.println("Is EMPTY? " + l.isEmpty());
+        System.out.println("Has size? " + l.size());
+    }
 
-        System.out.println("\t" + aList.add(-3, "out").getError());
-        System.out.println("\t" + aList.add(9, "out").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+    private void testGet(int index) {
 
-        // check list size increase and decrease
+        ReturnObject ret = aList.get(index);
 
-        System.out.println("\nAdding objects to increase list array list size...\n");
+        if (!ret.hasError()) {
+            System.out.println("\nGetting object from list at index " + index
+                    + ": "
+                    + "\n\t"  + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError getting object from list at index " + index
+                    + ": "
+                    + "\n\t" + ret.getError());
+        }
 
-        System.out.println("\t" + aList.add(5).getError());
-        System.out.println("\t" + aList.add(6).getError());
-        System.out.println("\t" + aList.add(7).getError());
-        System.out.println("\t" + aList.add(8).getError());
-        System.out.println("\t" + aList.add("nine").getError());
-        System.out.println("\t" + aList.add("ten").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+    }
 
-        System.out.println("\t" + aList.add(5).getError());
-        System.out.println("\t" + aList.add(6).getError());
-        System.out.println("\t" + aList.add(7).getError());
-        System.out.println("\t" + aList.add(8).getError());
-        System.out.println("\t" + aList.add("nine").getError());
-        System.out.println("\t" + aList.add("ten").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+    private void testAdd(Object o) {
 
-        System.out.println("\t" + aList.add(5).getError());
-        System.out.println("\t" + aList.add(6).getError());
-        System.out.println("\t" + aList.add(7).getError());
-        System.out.println("\t" + aList.add(8).getError());
-        System.out.println("\t" + aList.add("nine").getError());
-        System.out.println("\t" + aList.add("ten").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        ReturnObject ret = aList.add(o);
 
-        System.out.println("\t" + aList.add(5).getError());
-        System.out.println("\t" + aList.add(6).getError());
-        System.out.println("\t" + aList.add(7).getError());
-        System.out.println("\t" + aList.add(8).getError());
-        System.out.println("\t" + aList.add("nine").getError());
-        System.out.println("\t" + aList.add("ten").getError());
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+        if (!ret.hasError()) {
+            System.out.println("\nAdding object " + o.toString() + " to end of list.");
+        } else {
+            System.out.println("\nError adding object:"
+                    + "\n\t" + ret.getError());
+        }
 
-        System.out.println("\nGetting object from list:\n"
-                + "\t" + aList.get(14).getError()
-                + "\n\t"  +aList.get(14).getReturnValue().toString());
+    }
 
-        System.out.println("\nGetting object from list:\n"
-                + "\t" + aList.get(24).getError()
-                + "\n\t"  +aList.get(24).getReturnValue().toString());
+    private void testAddAtIndex(int index, Object o) {
 
-        System.out.println("\nGetting object from list:\n"
-                + "\t" + aList.get(8).getError()
-                + "\n\t" + aList.get(8).getReturnValue().toString());
+        ReturnObject ret = aList.add(index, o);
 
-        System.out.println("\t" + aList.remove(0).getError());
-        System.out.println("\t" + aList.remove(2).getError());
-        System.out.println("\t" + aList.remove(24).getError());
-        System.out.println("\t" + aList.remove(12).getError());
-        System.out.println("\t" + aList.remove(8).getError());
-        System.out.println("\t" + aList.remove(8).getError());
-        System.out.println("\t" + aList.remove(13).getError());
-        System.out.println("\t" + aList.remove(2).getError());
-        System.out.println("\t" + aList.remove(21).getError());
-        System.out.println("\t" + aList.remove(16).getError());
-        System.out.println("\t" + aList.remove(9).getError());
-        System.out.println("\t" + aList.remove(6).getError());
-        System.out.println("\t" + aList.remove(12).getError());
+        if (!ret.hasError()) {
+            System.out.println("\nAdding object " + o.toString() + " at index "
+                    + index + ".");
+        } else {
+            System.out.println("\nError adding object at index "
+                    + index + "."
+                    + "\n\t" + ret.getError());
+        }
 
-        System.out.println("\nList now contains objects: " + aList.toString());
-        System.out.println("Is EMPTY? " + aList.isEmpty());
-        System.out.println("Has size? " + aList.size());
+    }
 
+    private void testRemove(int index) {
+
+        ReturnObject ret = aList.remove(index);
+
+        if (!ret.hasError()) {
+            System.out.println("\nRemoving object at index "
+                    + index + " returns: "
+                    + ret.getReturnValue().toString());
+        } else {
+            System.out.println("\nError removing object at index "
+                    + index + "."
+                    + "\n\t" + ret.getError());
+        }
 
     }
 
